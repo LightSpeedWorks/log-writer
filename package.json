@@ -1,6 +1,6 @@
 {
   "name": "log-writer",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "log-writer",
   "main": "log-writer.js",
   "scripts": {
@@ -20,5 +20,8 @@
   "bugs": {
     "url": "https://github.com/LightSpeedWorks/log-writer/issues"
   },
-  "homepage": "https://github.com/LightSpeedWorks/log-writer"
+  "homepage": "https://github.com/LightSpeedWorks/log-writer",
+  "dependencies": {
+    "date-time-string": ">=0.0.1"
+  }
 }
