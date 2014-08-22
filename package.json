@@ -1,8 +1,8 @@
 {
   "name": "log-writer",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "log-writer",
-  "main": "log-writer.js",
+  "main": "lib/log-writer.js",
   "scripts": {
     "test": "cd test && node log-writer-test"
   },
