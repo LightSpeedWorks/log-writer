@@ -2,7 +2,7 @@
 
 'use strict';
 
-var LogWriter = require('../log-writer');
+var LogWriter = require('../lib/log-writer');
 
 LogWriterTest_test();
 
