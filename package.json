@@ -3,25 +3,25 @@
   "version": "0.0.4",
   "description": "log-writer",
   "main": "lib/log-writer.js",
-  "scripts": {
-    "test": "cd test && node log-writer-test"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/LightSpeedWorks/log-writer.git"
+  "dependencies": {
+    "date-time-string": ">=0.0.4"
   },
   "keywords": [
     "log",
     "logger",
     "file-writer"
   ],
-  "author": "LightSpeedC",
-  "license": "MIT",
+  "homepage": "https://github.com/LightSpeedWorks/log-writer",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/LightSpeedWorks/log-writer.git"
+  },
   "bugs": {
     "url": "https://github.com/LightSpeedWorks/log-writer/issues"
   },
-  "homepage": "https://github.com/LightSpeedWorks/log-writer",
-  "dependencies": {
-    "date-time-string": ">=0.0.4"
-  }
+  "scripts": {
+    "test": "cd test && node log-writer-test"
+  },
+  "author": "LightSpeedC",
+  "license": "MIT"
 }
