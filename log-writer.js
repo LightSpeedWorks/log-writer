@@ -28,8 +28,6 @@
 
   var toDateString = require('date-time-string').toDateString;
 
-  var slice = [].slice;
-
   var CRLF = '\r\n';
 
   //######################################################################
@@ -80,7 +78,7 @@
   //======================================================================
   // LogWriter write 出力
   function LogWriter_write() {
-    var msg = LogWriter_format.apply(this, slice.call(arguments));
+    var msg = LogWriter_format.apply(this, arguments);
 
     var dt = toDateString();
     if (this.$date !== dt) {
@@ -97,7 +95,7 @@
   //======================================================================
   // LogWriter writeln 出力(改行)
   function LogWriter_writeln() {
-    var msg = LogWriter_format.apply(this, slice.call(arguments)) + CRLF;
+    var msg = LogWriter_format.apply(this, arguments) + CRLF;
 
     var dt = toDateString();
     if (this.$date !== dt) {
@@ -129,21 +127,18 @@
   //======================================================================
   // LogWriter format 整形/フォーマット
   function LogWriter_format() {
-    // 引数を配列に変換
-    var args = slice.call(arguments);
-
-    for (var i = 0, n = args.length; i < n; ++i) {
-      if (typeof args[i] === 'object') {
-        if (args[i] instanceof Buffer)
-          args[i] = args[i].toString();
+    for (var i = 0, n = arguments.length; i < n; ++i) {
+      if (typeof arguments[i] === 'object') {
+        if (arguments[i] instanceof Buffer)
+          arguments[i] = arguments[i].toString();
         else
-          args[i] = LogWriter_inspect(args[i]);
+          arguments[i] = LogWriter_inspect(arguments[i]);
       }
-      if (typeof args[i] !== 'string')
-        args[i] = args[i].toString();
+      if (typeof arguments[i] !== 'string')
+        arguments[i] = arguments[i].toString();
     }
 
-    var str = util.format.apply(util, args)
+    var str = util.format.apply(util, arguments)
     if (this.$color) return str;
 
     return str.replace(/\x1b\[(\d+)?(;\d+?)*m/g, '|');
