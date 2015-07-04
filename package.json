@@ -1,10 +1,10 @@
 {
   "name": "log-writer",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "log-writer",
-  "main": "lib/log-writer.js",
+  "main": "log-writer.js",
   "dependencies": {
-    "date-time-string": ">=0.0.4"
+    "date-time-string": ">=0.0.9"
   },
   "keywords": [
     "log",
@@ -14,7 +14,7 @@
   "homepage": "https://github.com/LightSpeedWorks/log-writer",
   "repository": {
     "type": "git",
-    "url": "https://github.com/LightSpeedWorks/log-writer.git"
+    "url": "LightSpeedWorks/log-writer"
   },
   "bugs": {
     "url": "https://github.com/LightSpeedWorks/log-writer/issues"
