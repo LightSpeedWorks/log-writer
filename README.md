@@ -2,6 +2,15 @@
 
 # LogWriter {ログファイル出力}
 
+
+## INSTALL:
+
+[![NPM](https://nodei.co/npm/log-writer.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/log-writer/)
+[![NPM](https://nodei.co/npm-dl/log-writer.png?height=2)](https://nodei.co/npm/log-writer/)
+
+
+## EXAMPLES:
+
 ```js
 var LogWriter = require('log-writer');
 var writer = new LogWriter('log-file-name-%s.log');
