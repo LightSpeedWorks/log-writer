@@ -60,6 +60,11 @@
     this.$file = file;
     this.$writer = null;
     this.$date = null;
+    this.$timer = null;
+    var that = this;
+    this.$timeout = function () {
+      that.end();
+    }
     return this;
   }
 
@@ -81,7 +86,7 @@
     var msg = LogWriter_format.apply(this, arguments);
 
     var dt = toDateString();
-    if (this.$date !== dt) {
+    if (!this.$writer || this.$date !== dt) {
       this.$date = dt;
       if (this.$writer) this.$writer.end();
       this.$writer = fs.createWriteStream(util.format(this.$file, dt), {flags: 'a'});
@@ -98,7 +103,7 @@
     var msg = LogWriter_format.apply(this, arguments) + CRLF;
 
     var dt = toDateString();
-    if (this.$date !== dt) {
+    if (!this.$writer || this.$date !== dt) {
       this.$date = dt;
       if (this.$writer) this.$writer.end();
       this.$writer = fs.createWriteStream(util.format(this.$file, dt), {flags: 'a'});
@@ -112,7 +117,10 @@
   //======================================================================
   // LogWriter end 終了
   function LogWriter_end() {
-    if (this.$writer) this.$writer.end();
+    if (this.$writer) {
+      this.$writer.end();
+      this.$writer = null;
+    }
     return this;
   }
 
