@@ -4,10 +4,19 @@
 
 var LogWriter = require('../log-writer');
 
-LogWriterTest_test();
+var writer = new LogWriter('log-writer-ex-%s.log');
+test();
+setTimeout(test, 500);
+setTimeout(test, 1000);
+setTimeout(test, 1500);
+setTimeout(test, 2000);
+setTimeout(test, 5000);
+setTimeout(test, 8000);
+setTimeout(function () { writer.end(); }, 12000);
 
-function LogWriterTest_test() {
-  var writer = new LogWriter('log-writer-ex-%s.log');
+function test() {
+  console.log('test');
+  writer.write('==============================\r\n');
   writer.write('log-writer-test write\r\n');
   writer.writeln('log-writer-test writeln');
   writer.write('log-writer-test write\r\n');
@@ -30,5 +39,4 @@ function LogWriterTest_test() {
   writer.writeln();
   writer.write(null, undefined);
   writer.writeln();
-  writer.end();
 }
