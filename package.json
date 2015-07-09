@@ -1,6 +1,6 @@
 {
   "name": "log-writer",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "log-writer",
   "main": "log-writer.js",
   "dependencies": {
@@ -20,7 +20,7 @@
     "url": "https://github.com/LightSpeedWorks/log-writer/issues"
   },
   "scripts": {
-    "test": "cd test && node log-writer-test"
+    "test": "cd examples && node log-writer-ex"
   },
   "author": "LightSpeedC",
   "license": "MIT"
