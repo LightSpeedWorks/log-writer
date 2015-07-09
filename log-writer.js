@@ -29,6 +29,7 @@
   var toDateString = require('date-time-string').toDateString;
 
   var CRLF = '\r\n';
+  var INTERVAL = 1000;
 
   //######################################################################
   /**
@@ -40,10 +41,15 @@
 
     this.$color = false;
     this.setFile(file);
+
+    var that = this;
+    that.$timer = null;
+    that.$count = 0;
+    that.$interval = function () { if (++that.$count > 1) that.end(); };
   }
 
 
-  // class LogWriter methods {ログ・マネージャ・クラスのメソッド}
+  // class LogWriter methods {ログ書込みクラスのメソッド}
   LogWriter.prototype.setFile   = LogWriter_setFile;
   LogWriter.prototype.setColor  = LogWriter_setColor;
   LogWriter.prototype.write     = LogWriter_write;
@@ -58,19 +64,14 @@
       throw new Error('LogWriter_setFile: file name must be string');
 
     this.$file = file;
-    this.$writer = null;
+    if (this.$writer) this.end();
     this.$date = null;
-    this.$timer = null;
-    var that = this;
-    this.$timeout = function () {
-      that.end();
-    }
     return this;
   }
 
 
   //======================================================================
-  // LogWriter setColor ファイル設定
+  // LogWriter setColor 色設定
   function LogWriter_setColor(color) {
     if (typeof color !== 'boolean')
       throw new Error('LogWriter_setColor: color must be boolean');
@@ -88,11 +89,15 @@
     var dt = toDateString();
     if (!this.$writer || this.$date !== dt) {
       this.$date = dt;
-      if (this.$writer) this.$writer.end();
+      if (this.$writer) this.end();
       this.$writer = fs.createWriteStream(util.format(this.$file, dt), {flags: 'a'});
     }
 
     this.$writer.write(msg);
+
+    if (!this.$timer) this.$timer = setInterval(this.$interval, INTERVAL);
+    this.$count = 0;
+
     return this;
   }
 
@@ -100,17 +105,7 @@
   //======================================================================
   // LogWriter writeln 出力(改行)
   function LogWriter_writeln() {
-    var msg = LogWriter_format.apply(this, arguments) + CRLF;
-
-    var dt = toDateString();
-    if (!this.$writer || this.$date !== dt) {
-      this.$date = dt;
-      if (this.$writer) this.$writer.end();
-      this.$writer = fs.createWriteStream(util.format(this.$file, dt), {flags: 'a'});
-    }
-
-    this.$writer.write(msg);
-    return this;
+    return this.write(LogWriter_format.apply(this, arguments) + CRLF);
   }
 
 
@@ -121,6 +116,9 @@
       this.$writer.end();
       this.$writer = null;
     }
+
+    if (this.$timer) this.$timer = clearInterval(this.$timer);
+
     return this;
   }
 
@@ -142,8 +140,8 @@
         else
           arguments[i] = LogWriter_inspect(arguments[i]);
       }
-      if (typeof arguments[i] !== 'string')
-        arguments[i] = arguments[i].toString();
+      else if (typeof arguments[i] !== 'string')
+        arguments[i] = arguments[i] + '';
     }
 
     var str = util.format.apply(util, arguments)
