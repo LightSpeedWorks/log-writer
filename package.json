@@ -1,6 +1,6 @@
 {
   "name": "log-writer",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "log-writer",
   "main": "log-writer.js",
   "dependencies": {
