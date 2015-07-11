@@ -147,7 +147,7 @@
     var str = util.format.apply(util, arguments)
     if (this.$color) return str;
 
-    return str.replace(/\x1b\[(\d+)?(;\d+?)*m/g, '|');
+    return str.replace(/\x1b\[3\dm/g, '').replace(/\x1b\[\d*(;\d*)*m/g, '|');
   }
 
 
